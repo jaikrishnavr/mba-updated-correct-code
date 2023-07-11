@@ -25,15 +25,18 @@ isAdmin = async (req,res,next)=>{
 
     const user = await User.findOne({userId:req.userId});
 
-    if(user && user.userTypes===constants.userTypes.admin){
+    if(user && user.userTypes===constants.userTypes.admin || constants.userTypes.client){
         next();
     }else{
-        return res.status(403).send({message:"Requires Admin Role!"});
+        return res.status(403).send({message:"Requires client or admin Role!"});
     }
 }
 
 
+
+
 module.exports={
     verifyToken,
-    isAdmin
+    isAdmin,
+ 
 }
